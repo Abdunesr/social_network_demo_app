@@ -24,7 +24,7 @@ class MyTextField extends StatelessWidget {
           fillColor: Colors.grey[100],
           filled: true,
           hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.white)),
+          hintStyle: const TextStyle(color: Colors.grey)),
     );
   }
 }
