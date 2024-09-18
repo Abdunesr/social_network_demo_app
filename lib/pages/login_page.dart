@@ -52,7 +52,20 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 25,
                 ),
-                MyButton(onTap: () {}, text: "Sign In    ")
+                MyButton(onTap: () {}, text: "Sign In "),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Not a member?"),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Text(
+                      'Register now',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
+                )
               ],
             ),
           ),
