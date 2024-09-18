@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   Icons.message,
@@ -53,6 +54,9 @@ class _LoginPageState extends State<LoginPage> {
                   height: 25,
                 ),
                 MyButton(onTap: () {}, text: "Sign In "),
+                SizedBox(
+                  height: 25,
+                ),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
