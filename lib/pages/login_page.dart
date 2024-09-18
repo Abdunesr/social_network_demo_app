@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:social_media_demo/componets/My_text_Field.dart';
 import 'package:social_media_demo/componets/my_button.dart';
+import 'package:social_media_demo/services/auth/auth_service.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
+  const LoginPage({super.key, required this.ontap});
+  final void Function()? ontap;
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -12,6 +14,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void signIn() async {
+    final authservice = Provider.of<AuthService>(context, listen: false);
+
+    try {
+      await authservice.signInwithEmailandPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +38,21 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.message,
-                  size: 80,
-                  color: Colors.grey[800],
-                ),
+                  Container(
+                    width: 200, // Set the width to the desired size
+                    height: 200, // Set the height to the same value as width
+                    decoration: const BoxDecoration(
+                      shape: BoxShape
+                          .circle, // This ensures the container itself is circular
+                    ),
+                    child: ClipOval(
+                      child: Image.asset(
+                        'lib/asset/logo.jpg',
+                        fit: BoxFit
+                            .cover, // Ensures the image covers the entire circular area
+                      ),
+                    ),
+                  ),
                 const SizedBox(
                   height: 50,
                 ),
@@ -53,20 +77,23 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 25,
                 ),
-                MyButton(onTap: () {}, text: "Sign In "),
-                SizedBox(
+                MyButton(onTap: signIn, text: "Sign In "),
+                const SizedBox(
                   height: 25,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Not a member?"),
-                    SizedBox(
+                    const Text("Not a member?"),
+                    const SizedBox(
                       width: 4,
                     ),
-                    Text(
-                      'Register now',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      onTap: widget.ontap,
+                      child: const Text(
+                        'Register now',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     )
                   ],
                 )
